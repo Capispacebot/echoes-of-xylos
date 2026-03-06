@@ -12,7 +12,32 @@ canvas{display:block;cursor:crosshair}
 </head>
 <body>
 <canvas id="c"></canvas>
+<div id="gate" style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99;font-family:monospace">
+  <div style="color:#8866cc;font-size:22px;letter-spacing:4px;margin-bottom:32px">ECHOES OF XYLOS</div>
+  <input id="pwd" type="password" placeholder="password" autocomplete="off" style="background:#0a0018;border:2px solid #3a1870;color:#cc99ff;font-family:monospace;font-size:16px;padding:10px 18px;outline:none;letter-spacing:2px;width:220px;text-align:center">
+  <div id="pwderr" style="color:#ff4444;font-size:11px;margin-top:12px;opacity:0">wrong password</div>
+</div>
 <script>'use strict';
+(function(){
+  const PASS='xylos';
+  const gate=document.getElementById('gate');
+  const input=document.getElementById('pwd');
+  const err=document.getElementById('pwderr');
+  input.focus();
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){
+      if(input.value===PASS){
+        gate.style.display='none';
+        document.getElementById('c').focus();
+      } else {
+        err.style.opacity='1';
+        input.value='';
+        input.style.borderColor='#ff4444';
+        setTimeout(()=>{err.style.opacity='0';input.style.borderColor='#3a1870';},1200);
+      }
+    }
+  });
+})();
 // ═══════════════════════════════════════════════════════════════
 //  ECHOES OF XYLOS  ·  Faithful to Out of This World
 //  Screen-based rooms  ·  Web Audio SFX  ·  OotW polygon art
